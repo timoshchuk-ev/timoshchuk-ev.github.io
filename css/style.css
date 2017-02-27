@@ -82,7 +82,7 @@ input
   font-size: 13px;
   line-height: 11px;
   width: 350px;
- /* display: none; */
+  display: block; 
   color: #FF0000;
   padding-top: 5px;
 }
