@@ -1,4 +1,3 @@
-/* font-family: "ClearSansRegular"; */
 @font-face {
   font-family: "ClearSansRegular";
   src: url("../fonts/ClearSansRegular/ClearSansRegular.eot");
@@ -9,15 +8,13 @@
   font-weight: normal;
 }
 
-html 
-{
+html {
   background-color: #FFFFFF;
   width: 100%;
   height: 100%;
 }
-body 
-{
 
+body {
   width: 100%;
   height: 100%;
   font-size: 14px;
@@ -27,66 +24,63 @@ body
   font-family: ClearSansRegular;   
 }
 
-main
-{
-
+main {
   padding: 2% 20% 2% 20%;
 }
 
-header, footer
-{
-
+header, footer {
  padding: 2% 20% 2% 20%;
  background-color: #FAFAFA;
  text-align: right;
-
 }
-header
-{
+
+header {
   background-image: url("../img/logo.png");
   background-repeat: no-repeat;
   background-position: 24%;
 }
-header a
-{
+header a {
   font-size: 16px;
   color: #cecdcd;
 }
-header a:hover
-{
+
+header a:hover {
   color: #000000;
 }
-article a
-{
+
+article a {
   color: #000000;
 }
+
 input
 {
-  border: 2px solid  #d1d1d1;
+  border: 0.135em solid  #d1d1d1;
   font-size: 16px;
   line-height: 18px;
   padding: 10px;
+  margin-top: 4px;
+  background-color: #FFFFFF;
 }
 
-.subtext
-{
+/* Пояснения к полям ввода */
+.subtext {
   font-size: 11px;
   line-height: 11px;
   width: 350px;
   display: inline-block;
   margin-left: 10px;
+  padding-top: 10px;
 }
 
-.error
-{
+/* Сообщение об ошибке ввода */
+.error {
   font-size: 13px;
   line-height: 11px;
   width: 350px;
-  display: block; 
+  display: none;
   color: #FF0000;
   padding-top: 5px;
 }
-
 
 /* Стили модального окна */
 .modal-header h2 {
@@ -96,20 +90,23 @@ input
   line-height: 1;    
   margin: 0;
 }
-/* кнопка закрытия окна */
+
+/* Кнопка закрытия модального окна */
 .modal .btn-close {
   color: #aaa;
   cursor: pointer;
   font-size: 30px;
   text-decoration: none;
   position: absolute;
-  right: 5px;
-  top: 0;
+  right: 20px;
+  top: 20px;
 }
+
 .modal .btn-close:hover {
   color: red;
 }
-/* слой затемнения */
+
+/* Слой затемнения для модального окна */
 .modal-wrap:before {
   content: "";
   display: none;
@@ -121,6 +118,7 @@ input
   bottom: 0;
   z-index: 101;
 }
+
 .modal-overlay {
   bottom: 0;
   display: none;
@@ -130,11 +128,13 @@ input
   top: 0;
   z-index: 102;
 }
-/* активация слоя затемнения и модального блока */
+
+/* Активация слоя затемнения и модального блока */
 .modal-open:checked ~ .modal-wrap:before,
 .modal-open:checked ~ .modal-wrap .modal-overlay {
   display: block;
 }
+
 .modal-open:checked ~ .modal-wrap .modal-dialog {
   -webkit-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
@@ -142,7 +142,7 @@ input
   transform: translate(-50%, 0);
   top: 10%;
 }
-/* элементы модального окна */
+/* Элементы модального окна */
 .modal-dialog {
   background: #fefefe;
   border: none;
@@ -187,91 +187,98 @@ input
   border-top: #eaeaea solid 1px;
   text-align: right;
 }
-/* адаптивные картинки в модальном блоке */
+/* Адаптивные картинки в модальном блоке */
 .modal-body img { 
   max-width: 100%;
   height: auto;
 }
-/* кнопки */
+
+/* Кнопки */
 .btn {
+  
   background: #fff;
-  border: #d1d1d1 solid 1px;
+  border: #d1d1d1 solid 0.135px;
   border-radius: 2px;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
-  padding: 8px 8px;
   text-decoration: none;
   text-align: center;
-  min-width: 100px;
-  position: relative;
+  padding: 8px 8px;
   margin-top: 2px;
- 
-  
 }
+
+.btn2
+{
+  cursor: pointer;
+  background-image: url('../img/btn2.png');
+  border: 0px;
+  height: 43px;
+  width: 266px;
+}
+
 .btn:hover, .btn:focus {
- /* background: #f2f2f2; */
-  border: #006fdf solid 1px;
+  /*border: #006fdf solid 1px; */
   color: #006fdf;
 }
-.btn-primary {
-  background: #006fdf;
-  border-color: #357ebd;
-  color: #fff;
-  margin: 0;
 
+.btn-primary {
+  background-image: url('../img/btn.png');
+  background-repeat: no-repeat;
+  border: 0px solid red;
+  width: 114px;
+  height: 23px;
+  /*background: #006fdf;
+  border-color: #357ebd; */
+  color: #fff;
   font-size: 16px;
   line-height: 20px;
-  margin: 2px;
-
+  padding: 10px;
+  text-align: center ;
 }
+
 .btn-primary:hover{
-  background: #66A1D3;
+ /* background: #66A1D3; */
    color: #FFFFFF;
 }
 
 select {
-  border: 2px solid  #d1d1d1;
+  border: 0.135em solid  #d1d1d1;
   font-size: 16px;
   line-height: 18px;
-  padding: 10px;
-
-
- background: url(../img/arrow.png) no-repeat right ;
- 
-
+  padding:5px;
+   background: url(../img/arrow.png) no-repeat right ;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
 }
 
 select:hover {
   cursor: pointer;
-
 }
 
 option[default] {
   display: none;
 }
+
 option{
   color:#000000;
   background:#FFFFFF;
   border: 0;
+  padding: 5px;
 }
-
-
-    #valid
+/* Картинка с галочкой или крестиком при вводе e-mail */
+  #valid
     {
-      margin-top: 4px;
+      margin-top: 15px;
       margin-left: 9px;
       position: absolute;
       width: 16px;
       height: 16px;
     }
     
-    .text
-    {
-      font-family: Arial, Tahoma, Helvetica;
-    }
     
+  table {
+
+    border-collapse: collapse;
+  }
