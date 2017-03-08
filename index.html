@@ -42,6 +42,7 @@
         $('label[name="modal1"]').on('click', function() {
             var input = $('input[name="kategory1"]');
             input.val($(this).text());
+            if(input.value != $(this).text()) $('input[name="kategory2"]').val("");
             document.getElementById('1kat').style.display = 'none';
             document.getElementById('2kat').style.display = 'none';
             document.getElementById('3kat').style.display = 'none';
@@ -71,16 +72,6 @@
 		$('#day_pasp').numberMask({afterPoint: 0, beforePoint: 31});
 		$('#year_birth').numberMask({afterPoint: 1950, beforePoint: 2017});
 		$('#day_birth').numberMask({afterPoint: 1, beforePoint: 31});
-		$('#float').numberMask({type: 'float', afterPoint: 4, defaultValueInput: '10,1', decimalMark: ','});
-		$('#float2').numberMask({type: 'float', afterPoint: 4, defaultValueInput: '10.1', decimalMark: '.'});
-		$('#float3').numberMask({decimalMark: ['.', ','], type: 'float'});
-		$('#float4').numberMask({pattern: /^\d+\.{0,1}\d*$|^\d+,{0,1}\d*$/});
-		$('#negative').numberMask({pattern: /^-{0,1}\d*$/});
-		$('#word').numberMask({pattern: /^[f]{0,3}$/});
-		$('form').submit(function () {
-			alert('Form submit');
-			return false;
-		})
 	})
 </script>
 </head>
@@ -102,27 +93,31 @@
 				<p>
 					Заполнение формы данных для подачи заявления на материальную помощь:
 				</p>
-				<form>
+				<form name="sform" method="post" action="index.html" id="sform" name="sform" onsubmit="return check()">
+
 					<h2>Выберите институт</h2>
-					<select required style="width: 430px;" id="institut">
+					<div> 
+					<select  style="width: 430px;" id="institut" >
 						<option value="0" default selected>Выбрать...</option>
 						<option value="ИКНТ">ИКНТ</option>
 						<option value="ИММИТ">ИММИТ</option>
 					</select> 
-					<label class="error"> Поле с институтом должно быть заполнено. </label>
+					<label class="error" name="institut_er"> Поле с институтом должно быть заполнено. </label>
+				</div>
 
 					<h2>Как вас зовут</h2>
+
 					<table> 
 						<tr> <td> 
-							<input type="text" name="name" id="digit" placeholder="Фамилия" style="width: 189px;">
-							<input type="text" name="surname" placeholder="Имя" style="width: 189px;">
+							<input type="text" name="name" id="digit" placeholder="Фамилия" style="width: 189px;" >
+							<input type="text" name="surname" placeholder="Имя" style="width: 189px;" >
 						</td> </tr>
 						<tr> <td>  <input type="text" name="lastname" placeholder="Отчество" style="width: 406px;"></td> </tr> 
 					</table>
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<h2>Выберите категорию выплаты</h2>
-					<select required style="width: 430px;">
+					<select  style="width: 430px;">
 						<option> Фонд университета </option> 
 						<option> Фонд университета </option>
 						<option> Фонд университета </option>
@@ -131,9 +126,9 @@
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<h2>Выберите категорию подачи</h2>
-					<input type="text" name="kategory1" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled>
+					<input type="text" name="kategory1" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
 					<!-- Кнопка активации -->
-					<label class="btn btn-primary" for="modal1"> Изменить </label>
+					<label class="btn-primary" for="modal1"> Изменить </label>
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 					
 					<!-- Модальное окно -->
@@ -162,9 +157,9 @@
 					</div>
 
 					<h2>Выберите подкатегорию подачи</h2>
-					<input type="text" name="kategory2" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled>
+					<input type="text" name="kategory2" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
 					<!-- Кнопка активации -->
-					<label class="btn btn-primary" for="modal2" id="change" style="display: none;"> Изменить </label>
+					<label class="btn-primary" for="modal2" id="change" style="display: none;"> Изменить </label>
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<!-- Модальное окно -->
@@ -211,24 +206,26 @@
 					</div>
 
 					<h2> Введите ИНН </h2>
-					<input name="inn" id="inn" type="text" maxlength="12" style="width: 406px;" required>
+					<div>
+					<input name="inn" id="inn" type="text" maxlength="12" style="width: 406px;" >
 					<label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой службы <a href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<label class="error" name="inns"> Поле с именем должно быть заполнено. </label>
+					</div>
 
 					<h2> Введите серию и номер паспорта </h2>
-					<input name="seria" id="seria" type="text" placeholder="Серия"  maxlength="4" style="width: 139px;" required>
-					<input name="nomer" id="nomer" type="text" placeholder="Номер"  maxlength="6" style="width: 240px;"required>
+					<input name="seria" id="seria" type="text" placeholder="Серия"  maxlength="4" style="width: 139px;" >
+					<input name="nomer" id="nomer" type="text" placeholder="Номер"  maxlength="6" style="width: 240px;">
 					<label class="subtext"> при заполнении серии и номера паспорта, символ № не указывается	</label>
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<h2> Кем выдан паспорт </h2>
-					<input name="vidan" type="text" style="width: 407px; text-transform: uppercase;">
+					<input name="vidan" type="text" style="width: 407px; text-transform: uppercase;" >
 					<label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с паспортом, используя CAPSLOCK (заглавные буквы) </label>
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<h2> Дата выдачи паспорта </h2>
-					<input id="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;" required>
-					<select id="month_pasp" placeholder="Месяц" style="width: 224px;">
+					<input id="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;" >
+					<select id="month_pasp" placeholder="Месяц" style="width: 224px;" >
 						<option> Январь </option> 
 						<option> Февраль </option>
 						<option> Март </option>
@@ -242,14 +239,14 @@
 						<option> Ноябрь </option>
 						<option> Декабрь </option>
 					</select>
-					<input id="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;" required>
+					<input id="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
 
 					<h2> Введите номер телефона </h2>
-					<input id="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;">
+					<input id="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;" >
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					<h2> Введите дату рождения </h2>
-					<input id="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px;" required>
+					<input id="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px;">
 					<select id="month_birth" placeholder="Месяц" style="width: 224px;">
 						<option> Январь </option> 
 						<option> Февраль </option>
@@ -264,7 +261,7 @@
 						<option> Ноябрь </option>
 						<option> Декабрь </option>
 					</select>
-					<input id="year_birth" type="text" placeholder="Год" maxlength="4"  style="width: 100px;" required>
+					<input id="year_birth" type="text" placeholder="Год" maxlength="4"  style="width: 100px;" >
 					<label class="error"> Поле с именем должно быть заполнено. </label>
 
 					 <h2> Введите адрес регистрации в Санкт-Петербурге </h2> 
@@ -282,9 +279,9 @@
 
 					<h2> Введите e-mail </h2>
 					<input type="email"  placeholder="example@mail.com"  id="mail" style="width: 406px;"><span id="valid"></span>
-				</form>
-				<p> <label class="btn btn-primary" for="modal3" onClick="SendForm()">  Отправить </label> </p> 
-
+				<p>
+				<input type="submit" class="btn-primary" value="Подать заявление" for="modal3 "> </p> 
+</form>
 					<!-- Модальное окно -->
 					<div class="modal" name="modal3">
 						<input class="modal-open" id="modal3" type="checkbox" hidden>
