@@ -6,8 +6,8 @@
 	<title>Мат. помощь</title>
 	<link rel="shortcut icon" type="image/x-icon" href="img/fav.ico">
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-  	<script src="js/jquery-3.1.1.min.js"></script>
-  	<script src="js/sendform.js"></script> <!-- Проверка формы -->
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/sendform.js"></script> <!-- Проверка формы -->
 	<script src="js/jquery.DigitMask.js"></script> <!-- Скрипт для маски числовых полей-->
 	<script src="js/jquery.TelMask.js"></script> <!-- Скрипт для маски телефона-->
 	<script type="text/javascript">
@@ -34,35 +34,35 @@
 	});
 	
 	function isValidEmailAddress(emailAddress) {
- 		var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
- 		return pattern.test(emailAddress);
+		var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+		return pattern.test(emailAddress);
 	}
 
-    $(function() {
-        $('label[name="modal1"]').on('click', function() {
-            var input = $('input[name="kategory1"]');
-            input.val($(this).text());
-            if(input.value != $(this).text()) $('input[name="kategory2"]').val("");
-            document.getElementById('1kat').style.display = 'none';
-            document.getElementById('2kat').style.display = 'none';
-            document.getElementById('3kat').style.display = 'none';
-            document.getElementById('4kat').style.display = 'none';
- 			document.getElementById('change').style.display = '';
-            document.getElementById(this.id + 'kat').style.display = '';
+	$(function() {
+		$('label[name="modal1"]').on('click', function() {
+			var input = $('input[id="kategory1"]');
+			input.val($(this).text());
+			if(input.value != $(this).text()) $('input[name="kategory2"]').val("");
+			document.getElementById('1kat').style.display = 'none';
+			document.getElementById('2kat').style.display = 'none';
+			document.getElementById('3kat').style.display = 'none';
+			document.getElementById('4kat').style.display = 'none';
+			document.getElementById('change').style.display = '';
+			document.getElementById(this.id + 'kat').style.display = '';
+		//	alert(document.getElementById('kategory1').value);
+		});
+	});
 
-        });
-    });
+	$(function() {
+		$('label[name="modal2"]').on('click', function() {
+			var input = $('input[name="kategory2"]');
+			input.val($(this).text());
+		});
+	});
 
-    $(function() {
-        $('label[name="modal2"]').on('click', function() {
-            var input = $('input[name="kategory2"]');
-            input.val($(this).text());
-        });
-    });
-
-    jQuery(function($){
-        $("#tel").mask("+7 (999) 999-99-99");
-    });
+	jQuery(function($){
+		$("#tel").mask("+7 (999) 999-99-99");
+	});
 
 	$(function () {
 		$('#inn').numberMask({beforePoint: 12});
@@ -73,131 +73,132 @@
 		$('#year_birth').numberMask({afterPoint: 1950, beforePoint: 2017});
 		$('#day_birth').numberMask({afterPoint: 1, beforePoint: 31});
 	})
-</script>
+	</script>
 </head>
-	<body>
-		<header>
-			<!-- <a href="index.html"><img src="img/logo.png"><a> --> 
-			<text align="right"> Бета-версия </text><br>
-			<a href="old.html" align="right"> Вернуться на сайт </a>
-		</header>
-		<main>
-			<h1> Электронная подача заявлений на материальную помощь </h1>
-			<section>
-				<p> Вы можете подать заявление электронно. Вам необходимо распечатать скаченное заявление, прикрепив к нему ксерокопии необходимых документов и занести по адресу: ул. Полтехничесая, д.29, I учебный корпус, аудитория 349.</p>	
-				<p>
-					Ознакомиться с категориями можно в прилагаемых документах:
-				</p>
-				<input type="button" class="btn2" onclick="location.href = '/example/'" value="Бюджет профсоюза, PDF"> 
-				<input type="button" class="btn2" onclick="location.href = '/example/'" value="Фонд университета, PDF" > 
-				<p>
-					Заполнение формы данных для подачи заявления на материальную помощь:
-				</p>
-				<form name="sform" method="post" action="index.html" id="sform" name="sform" onsubmit="return check()">
-
-					<h2>Выберите институт</h2>
-					<div> 
-					<select  style="width: 430px;" id="institut" >
+<body>
+	<header>
+		<!-- <a href="index.html"><img src="img/logo.png"><a> --> 
+		<text align="right"> Бета-версия </text><br>
+		<a href="old.html" align="right"> Вернуться на сайт </a>
+	</header>
+	<main>
+		<h1> Электронная подача заявлений на материальную помощь </h1>
+		<section>
+			<p> Вы можете подать заявление электронно. Вам необходимо распечатать скаченное заявление, прикрепив к нему ксерокопии необходимых документов и занести по адресу: ул. Полтехничесая, д.29, I учебный корпус, аудитория 349.</p>	
+			<p>
+				Ознакомиться с категориями можно в прилагаемых документах:
+			</p>
+			<input type="button" class="btn2" onclick="location.href = '/example/'" value="Бюджет профсоюза, PDF"> 
+			<input type="button" class="btn2" onclick="location.href = '/example/'" value="Фонд университета, PDF" > 
+			<p>
+				Заполнение формы данных для подачи заявления на материальную помощь:
+			</p>
+			<form id="service">
+				<h2>Выберите институт</h2>
+				<div> 
+					<select id="institut" style="width: 430px;">
 						<option value="0" default selected>Выбрать...</option>
-						<option value="ИКНТ">ИКНТ</option>
-						<option value="ИММИТ">ИММИТ</option>
+						<option value="1" >ИКНТ</option>
+						<option value="2" >ИММИТ</option>
 					</select> 
-					<label class="error" name="institut_er"> Поле с институтом должно быть заполнено. </label>
+					<div class="error" id="er_inst"> </div>
 				</div>
 
-					<h2>Как вас зовут</h2>
+				<h2>Как вас зовут</h2>
+				<table> 
+					<tr> <td> 
+						<input type="text" id="surname" placeholder="Фамилия" style="width: 189px;" >
+						<input type="text" id="name" placeholder="Имя" style="width: 189px;" >
+					</td> </tr>
+					<tr> <td>  <input type="text" id="lastname" placeholder="Отчество" style="width: 406px;"></td> </tr> 
+				</table>
+				<div class="error" id="er_fio"> </div>
 
-					<table> 
-						<tr> <td> 
-							<input type="text" name="name" id="digit" placeholder="Фамилия" style="width: 189px;" >
-							<input type="text" name="surname" placeholder="Имя" style="width: 189px;" >
-						</td> </tr>
-						<tr> <td>  <input type="text" name="lastname" placeholder="Отчество" style="width: 406px;"></td> </tr> 
-					</table>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+				<h2>Выберите категорию выплаты</h2>
+				<select  style="width: 430px;">
+					<option value="0" default selected>Выбрать...</option>
+					<option> Фонд университета </option> 
+					<option> Фонд университета </option>
+					<option> Фонд университета </option>
+				</select>
+				<label class="subtext"> выплаты из Фонда университета назначаются студентам, обучающимся на бюджетной основе по очной форме обучения </label>
+				<div class="error" id="er_fond"> </div>
 
-					<h2>Выберите категорию выплаты</h2>
-					<select  style="width: 430px;">
-						<option> Фонд университета </option> 
-						<option> Фонд университета </option>
-						<option> Фонд университета </option>
-					</select>
-					<label class="subtext"> выплаты из Фонда университета назначаются студентам, обучающимся на бюджетной основе по очной форме обучения </label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
-
-					<h2>Выберите категорию подачи</h2>
-					<input type="text" name="kategory1" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
-					<!-- Кнопка активации -->
-					<label class="btn-primary" for="modal1"> Изменить </label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
-					
-					<!-- Модальное окно -->
-					<div class="modal" name="modal1">
-						<input class="modal-open" id="modal1" type="checkbox" hidden>
-						<div class="modal-wrap" aria-hidden="true" role="dialog">
-							<label class="modal-overlay" for="modal1"></label>
-							<div class="modal-dialog">
-								<div class="modal-header">
-									<h2> Категория подачи </h2>
-									<label class="btn-close" aria-hidden="true" for="modal1">×</label>
-								</div>
-								<div class="modal-body">
-									<p>	
-										<label class="btn" name="modal1" id="1" for="modal1"> Категория 1 для получения материальной помощи от профсоюза </label>
-										<label class="btn" name="modal1" id="2" for="modal1"> Категория 2 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal1" id="3" for="modal1"> Категория 3 для получения материальной помощи от профсоюза </label>
-										<label class="btn" name="modal1" id="4" for="modal1"> Категория 4 для получения материальной помощи от профсоюза </label>
-									</p>
-								</div>
+				<h2>Выберите категорию подачи</h2>
+				<input type="text" id="kategory1" name="kategory1" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
+				<!-- Кнопка активации -->
+				<label class="btn-primary" for="modal1" style="margin-left: 10px;"> Изменить </label>
+				<div class="error" id="er_kat1"> </div>
+				
+				<!-- Модальное окно -->
+				<div class="modal" name="modal1">
+					<input class="modal-open" id="modal1" type="checkbox" hidden>
+					<div class="modal-wrap" aria-hidden="true" role="dialog">
+						<label class="modal-overlay" for="modal1"></label>
+						<div class="modal-dialog">
+							<div class="modal-header">
+								<h2> Категория подачи </h2>
+								<label class="btn-close" aria-hidden="true" for="modal1">×</label>
+							</div>
+							<div class="modal-body">
+								
+									<label class="btn" name="modal1" id="1" for="modal1">Категория 1 для получения материальной помощи от профсоюза </label>
+									<label class="btn" name="modal1" id="2" for="modal1">Категория 2 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal1" id="3" for="modal1">Категория 3 для получения материальной помощи от профсоюза </label>
+									<label class="btn" name="modal1" id="4" for="modal1">Категория 4 для получения материальной помощи от профсоюза </label>
+								</p>
+							</div>
+						</br>
 								<!-- <div class="modal-footer">
-									<label class="btn btn-primary" for="modal1"> Закрыть </label> -->
-								</div>
+								<label class="btn btn-primary" for="modal1"> Закрыть </label> -->
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<h2>Выберите подкатегорию подачи</h2>
-					<input type="text" name="kategory2" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
-					<!-- Кнопка активации -->
-					<label class="btn-primary" for="modal2" id="change" style="display: none;"> Изменить </label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+				<h2>Выберите подкатегорию подачи</h2>
+				<input type="text" id="kategory2" name="kategory2" placeholder="Не выбрано" style="width: 406px; /* border: 0px; */" value="..." disabled >
+				<!-- Кнопка активации -->
+				<label class="btn-primary" for="modal2" id="change" style="display: none; margin-left: 10px;"> Изменить </label>
+				<div class="error" id="er_kat2"> </div>
 
-					<!-- Модальное окно -->
-					<div class="modal" name="modal2">
-						<input class="modal-open" id="modal2" type="checkbox" hidden>
-						<div class="modal-wrap" aria-hidden="true" role="dialog">
-							<label class="modal-overlay" for="modal2"></label>
-							<div class="modal-dialog">
-								<div class="modal-header">
-									<h2> Подкатегория подачи </h2>
-									<label class="btn-close" aria-hidden="true" for="modal2">×</label>
-								</div>
-								<div class="modal-body">
-									<p id="1kat">	
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 1 категории 1 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 2 категории 1 для получения материальной помощи от профсоюза </label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 3 категории 1 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 4 категории 1 для получения материальной помощи от профсоюза</label>
-									</p>
-									<p id="2kat" >	
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 1 категории 2 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 2 категории 2 для получения материальной помощи от профсоюза </label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 3 категории 2 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 4 категории 2 для получения материальной помощи от профсоюза</label>
-									</p>
-									<p id="3kat">	
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 1 категории 3 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 2 категории 3 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 3 категории 3 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 4 категории 3 для получения материальной помощи от профсоюза </label>
-									</p>
-									<p id="4kat">	
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 1 категории 4 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 2 категории 4 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 3 категории 4 для получения материальной помощи от профсоюза</label>
-										<label class="btn" name="modal2" for="modal2"> Подкатегория 4 категории 4 для получения материальной помощи от профсоюза</label>
-									</p>
-								</div>
+				<!-- Модальное окно -->
+				<div class="modal" name="modal2">
+					<input class="modal-open" id="modal2" type="checkbox" hidden>
+					<div class="modal-wrap" aria-hidden="true" role="dialog">
+						<label class="modal-overlay" for="modal2"></label>
+						<div class="modal-dialog">
+							<div class="modal-header">
+								<h2> Подкатегория подачи </h2>
+								<label class="btn-close" aria-hidden="true" for="modal2">×</label>
+							</div>
+							<div class="modal-body">
+								<p id="1kat">	
+									<label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 1 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 1 для получения материальной помощи от профсоюза </label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 1 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 1 для получения материальной помощи от профсоюза</label>
+								</p>
+								<p id="2kat" >	
+									<label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 2 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 2 для получения материальной помощи от профсоюза </label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 2 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 2 для получения материальной помощи от профсоюза</label>
+								</p>
+								<p id="3kat">	
+									<label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 3 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 3 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 3 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 3 для получения материальной помощи от профсоюза </label>
+								</p>
+								<p id="4kat">	
+									<label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 4 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 4 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 4 для получения материальной помощи от профсоюза</label>
+									<label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 4 для получения материальной помощи от профсоюза</label>
+								</p>
+							</div>
+							</br>
 								<!-- <div class="modal-footer">
 									<label class="btn btn-primary" for="modal2"> Закрыть </label>
 								</div> -->
@@ -207,25 +208,25 @@
 
 					<h2> Введите ИНН </h2>
 					<div>
-					<input name="inn" id="inn" type="text" maxlength="12" style="width: 406px;" >
-					<label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой службы <a href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label>
-					<label class="error" name="inns"> Поле с именем должно быть заполнено. </label>
+						<input id="inn" type="text" maxlength="12" style="width: 406px;" >
+						<!-- <label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой службы <a href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label> -->
+						<div class="error" id="er_inn"> </div>
 					</div>
 
 					<h2> Введите серию и номер паспорта </h2>
 					<input name="seria" id="seria" type="text" placeholder="Серия"  maxlength="4" style="width: 139px;" >
 					<input name="nomer" id="nomer" type="text" placeholder="Номер"  maxlength="6" style="width: 240px;">
 					<label class="subtext"> при заполнении серии и номера паспорта, символ № не указывается	</label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<div class="error" id="er_pasp"> </div>
 
 					<h2> Кем выдан паспорт </h2>
-					<input name="vidan" type="text" style="width: 407px; text-transform: uppercase;" >
+					<input name="vidan" type="text" style="width: 407px; text-transform: uppercase;" placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
 					<label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с паспортом, используя CAPSLOCK (заглавные буквы) </label>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<div class="error" > </div>
 
 					<h2> Дата выдачи паспорта </h2>
 					<input id="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;" >
-					<select id="month_pasp" placeholder="Месяц" style="width: 224px;" >
+					<select id="month_pasp" placeholder="Месяц" style="width: 224px; background-color: #FAFAFA;" >
 						<option> Январь </option> 
 						<option> Февраль </option>
 						<option> Март </option>
@@ -242,12 +243,12 @@
 					<input id="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
 
 					<h2> Введите номер телефона </h2>
-					<input id="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;" >
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<input id="tel" type="tel" placeholder="+7 (999) 000-01-01" value ="" style="width: 406px;" >
+					<div class="error" id="er_tel "> </div>
 
 					<h2> Введите дату рождения </h2>
-					<input id="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px;">
-					<select id="month_birth" placeholder="Месяц" style="width: 224px;">
+					<input id="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px; ">
+					<select id="month_birth" placeholder="Месяц" style="width: 224px; background-color: #FAFAFA;">
 						<option> Январь </option> 
 						<option> Февраль </option>
 						<option> Март </option>
@@ -262,9 +263,9 @@
 						<option> Декабрь </option>
 					</select>
 					<input id="year_birth" type="text" placeholder="Год" maxlength="4"  style="width: 100px;" >
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<div class="error"> </div>
 
-					 <h2> Введите адрес регистрации в Санкт-Петербурге </h2> 
+					<h2> Введите адрес регистрации в Санкт-Петербурге </h2> 
 					<table> 
 						<tr> <td> 
 							<input type="text" id="street" placeholder="Улица" style="width: 406px;">
@@ -275,40 +276,45 @@
 							<input type="text" id="flat" placeholder="Квартира" style="width: 117px;">
 						</td> </tr> 
 					</table>
-					<label class="error"> Поле с именем должно быть заполнено. </label>
+					<div class="error" id="er_adres"> </div>
 
 					<h2> Введите e-mail </h2>
-					<input type="email"  placeholder="example@mail.com"  id="mail" style="width: 406px;"><span id="valid"></span>
-				<p>
-				<input type="submit" class="btn-primary" value="Подать заявление" for="modal3 "> </p> 
-</form>
-					<!-- Модальное окно -->
-					<div class="modal" name="modal3">
-						<input class="modal-open" id="modal3" type="checkbox" hidden>
-						<div class="modal-wrap" aria-hidden="true" role="dialog">
-							<label class="modal-overlay" for="modal3" style=""></label>
-							<div class="modal-dialog" style="">
-								<div class="modal-header">
-									<h1> Ваше заявление успешно зарегистрировано! </h1>
-								</div>
-								<div class="modal-body">
-									<p>	
-										
-									</p>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-				<article style="width: 600px; font-size: 12px; line-height: 15px;"> 
-					Нажимая кнопку «Подать заявление», я принимаю <a href="#">условия Пользовательского соглашения</a>  и даю своё согласие Профсоюзной организации на обработку моих персональных данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ <a href="#">«О персональных данных»</a>
-				</article>
-			</section>
-		</main>
-		<footer>
-			<div align="right"> Служба поддержки: help@gmail.com </div>
-		</footer>
-	</body>
-	</html>
+					<input type="email" id="mail" placeholder="example@mail.com" style="width: 406px;">  <span id="valid"></span> 
+					<div class="error" id="er_mail"> </div>  
+					
 
+				</br>
+				<input type="submit" class="btn-primary" value="Подать заявление"> 
+
+			</form>
+			<!-- Модальное окно -->
+			<div class="modal" name="modal3">
+				<input class="modal-open" id="modal3" type="checkbox" hidden>
+				<div class="modal-wrap" aria-hidden="true" role="dialog">
+					<label class="modal-overlay" for="modal3" style=""></label>
+					<div class="modal-dialog" style="">
+						<div class="modal-header">
+							<h1> Ваше заявление зарегистрировано! </h1>
+						</div>
+						<div class="modal-body">
+							<p>	
+
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</br>
+		<article style="width: 600px; font-size: 12px; line-height: 15px;"> 
+			Нажимая кнопку «Подать заявление», я принимаю <a href="#">условия Пользовательского соглашения</a>  и даю своё согласие Профсоюзной организации на обработку моих персональных данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ <a href="#">«О персональных данных»</a>
+		</article>
+	</section>
+</main>
+<footer>
+	<div align="right"> Служба поддержки: help@gmail.com </div>
+</footer>
+</body>
+</html>
 	<!-- Вёрстка: Тимощук Евгений, zheny.tim@gmail.com  kladrapi>
+
