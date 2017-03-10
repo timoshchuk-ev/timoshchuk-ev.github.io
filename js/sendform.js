@@ -1,7 +1,7 @@
     $(document).ready(function(){
 
              // Устанавливаем обработчик потери фокуса для всех полей ввода текста
-             $('input#name, input#surname, input#lastname').unbind().blur( function(){
+             $('input#name, input#surname, input#lastname, input#mail, input#vidan').unbind().blur( function(){
                 // Для удобства записываем обращения к атрибуту и значению каждого поля в переменные 
                 var id =  $(this).attr('id');
                 var val = $(this).val();
@@ -13,7 +13,7 @@
                   var rv_name = /^[a-zA-Zа-яА-Я]+$/; 
       
 
-                  if(val.length > 2 && val != '' && rv_name.test(val))
+                  if(val.length > 3 && val != '' && rv_name.test(val))
                   {
                     $(this).addClass('not_error');
                     $(this).next('.error').text('Принято')
@@ -71,6 +71,9 @@
                         .css('color','green')
                         .animate({'paddingLeft':'5px'},400)
                         .animate({'paddingLeft':'2px'},400);
+                        $("#valid").css({
+          "background-image": "none"
+        });   
                       }
                       else
                       {
@@ -79,6 +82,7 @@
                         .css('color','red')
                         .animate({'paddingLeft':'5px'},400)
                         .animate({'paddingLeft':'2px'},400);
+
                       }
                       break;
 
@@ -96,6 +100,26 @@
                       {
 
                         $(this).next('.error').html('Неверный формат ИНН')
+                        .css('color','red')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+                      break;
+
+                       case 'vidan':
+                     //  alert('inn');
+                      if(val != '')
+                      {
+
+                        $(document.getElementById('er_vidan')).text('Принято')
+                        .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+                      else
+                      {
+
+                        $(document.getElementById('er_vidan')).html('Неверный формат данных')
                         .css('color','red')
                         .animate({'paddingLeft':'5px'},400)
                         .animate({'paddingLeft':'2px'},400);
@@ -129,6 +153,51 @@
                         .animate({'paddingLeft':'2px'},400);
                       }
 
+              n = document.getElementById('fond').options.selectedIndex;
+              if(document.getElementById('fond').options[n].value == "0") 
+                { 
+                  // alert(document.getElementById('institut').value);
+                   $(document.getElementById('er_fond')).text('Поле выбора категории оплаты не заполнено')
+                        .css('color','red')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                } else  {
+                 $(document.getElementById('er_fond')).text('Принято')
+                .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+
+              
+               if(document.getElementById('mail').value == "" || !rv_email.test(val)) 
+                { 
+                   $(document.getElementById('er_mail')).text('Неверный формат E-Mail')
+                        .css('color','red')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                } else  {
+                 $(document.getElementById('er_mail')).text('Принято')
+                .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+
+
+               if(document.getElementById('vidan').value == "") 
+                { 
+                    
+                   $(document.getElementById('er_vidan')).text('Неверный формат данных')
+                        .css('color','red')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                } else  {
+                 $(document.getElementById('er_vidan')).text('Принято')
+                .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+
+
                if(document.getElementById('lastname').value == "" || document.getElementById('surname').value == "" || document.getElementById('name').value == "") 
                 { 
                    
@@ -142,6 +211,21 @@
                         .animate({'paddingLeft':'5px'},400)
                         .animate({'paddingLeft':'2px'},400);
                       }
+
+                  if(document.getElementById('street').value == "" || document.getElementById('k').value == "" || document.getElementById('building').value == "" || document.getElementById('flat').value == "")
+                { 
+                   
+                   $(document.getElementById('er_adres')).html('Неверный формат адреса')
+                        .css('color','red')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                } else  {
+                 $(document.getElementById('er_adres')).text('Принято')
+                .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
+
 
 
                 if(!rv_inn.test(document.getElementById('inn').value)) 
@@ -158,7 +242,7 @@
                         .animate({'paddingLeft':'2px'},400);
                       }
 
-                 if(!rv_seria.test(document.getElementById('seria').value)) 
+                 if(!rv_seria.test(document.getElementById('seria').value) || !rv_nomer.test(document.getElementById('nomer').value)) 
                 { 
                   // alert('pasp');
                    $(document.getElementById('er_pasp')).html('Неверный формат паспортных данных')
@@ -166,6 +250,12 @@
                         .animate({'paddingLeft':'5px'},400)
                         .animate({'paddingLeft':'2px'},400);
                 }
+                else  {
+                 $(document.getElementById('er_pasp')).text('Принято')
+                .css('color','green')
+                        .animate({'paddingLeft':'5px'},400)
+                        .animate({'paddingLeft':'2px'},400);
+                      }
 
 
                 if(document.getElementById('kategory1').value == "...") 
