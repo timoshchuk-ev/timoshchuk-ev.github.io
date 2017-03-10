@@ -48,6 +48,7 @@
 			document.getElementById('3kat').style.display = 'none';
 			document.getElementById('4kat').style.display = 'none';
 			document.getElementById('change').style.display = '';
+			document.getElementById('kategory2').value = '...';
 			document.getElementById(this.id + 'kat').style.display = '';
 			//alert(document.getElementById('kategory1').value);
 		});
@@ -65,13 +66,16 @@
 	});
 
 	$(function () {
-		$('#inn').numberMask({beforePoint: 12});
-		$('#seria').numberMask({beforePoint: 4});
-		$('#nomer').numberMask({beforePoint: 6});
-		$('#year_pasp').numberMask({afterPoint: 1950, beforePoint: 2017});
-		$('#day_pasp').numberMask({afterPoint: 0, beforePoint: 31});
-		$('#year_birth').numberMask({afterPoint: 1950, beforePoint: 2017});
-		$('#day_birth').numberMask({afterPoint: 1, beforePoint: 31});
+		$('#inn').numberMask();
+		$('#seria').numberMask();
+		$('#nomer').numberMask();
+		$('#year_pasp').numberMask();
+		$('#day_pasp').numberMask();
+		$('#year_birth').numberMask();
+		$('#day_birth').numberMask();
+		$('#building').numberMask();
+		$('#k').numberMask();
+		$('#flat').numberMask();
 	})
 	</script>
 </head>
@@ -115,7 +119,7 @@
 				<div class="error" id="er_fio"> </div>
 
 				<h2>Выберите категорию выплаты</h2>
-				<select  style="width: 430px;">
+				<select  id="fond" style="width: 430px;">
 					<option value="0" default selected>Выбрать...</option>
 					<option> Фонд университета </option> 
 					<option> Фонд университета </option>
@@ -220,9 +224,9 @@
 					<div class="error" id="er_pasp"> </div>
 
 					<h2> Кем выдан паспорт </h2>
-					<input name="vidan" type="text" style="width: 407px; text-transform: uppercase;" placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
+					<input id="vidan" type="text" style="width: 407px; text-transform: uppercase;" placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
 					<label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с паспортом, используя CAPSLOCK (заглавные буквы) </label>
-					<div class="error" > </div>
+					<div class="error" id="er_vidan" > </div>
 
 					<h2> Дата выдачи паспорта </h2>
 					<input id="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;" >
