@@ -11,6 +11,8 @@
                {
                   case 'lastname':
                   var rv_name = /^[a-zA-Zа-яА-Я]+$/; 
+      
+
                   if(val.length > 2 && val != '' && rv_name.test(val))
                   {
                     $(this).addClass('not_error');
@@ -35,7 +37,7 @@
                       break;
 
                     case 'name':
-                  var rv_name = /^[a-zA-Zа-яА-Я]+$/; 
+                     var rv_name = /^[a-zA-Zа-яА-Я]+$/; 
                   if(val.length > 2 && val != '' && rv_name.test(val))
                   {
                     $(this).addClass('not_error');
@@ -108,9 +110,12 @@
              // Теперь отправим с помощью AJAX
              $('form#service').submit(function(e){
 
-             
+              var rv_inn = /^[0-9]{12}$/;
+                  var rv_seria = /^[0-9]{4}$/;
+                  var rv_nomer = /^[0-9]{6}$/;
+
               var n = document.getElementById('institut').options.selectedIndex;
-              if(document.getElementById('institut').options[n].value = "0") 
+              if(document.getElementById('institut').options[n].value == "0") 
                 { 
                   // alert(document.getElementById('institut').value);
                    $(document.getElementById('er_inst')).text('Поле выбора института не заполнено')
@@ -124,7 +129,7 @@
                         .animate({'paddingLeft':'2px'},400);
                       }
 
-                if(document.getElementById('lastname').value == "" || document.getElementById('surname').value == "" || document.getElementById('name').value == "") 
+               if(document.getElementById('lastname').value == "" || document.getElementById('surname').value == "" || document.getElementById('name').value == "") 
                 { 
                    
                    $(document.getElementById('er_fio')).html('Неверный формат ФИО')
@@ -139,7 +144,7 @@
                       }
 
 
-                if(document.getElementById('inn').value == "") 
+                if(!rv_inn.test(document.getElementById('inn').value)) 
                 { 
                   // alert('inn');
                    $(document.getElementById('er_inn')).html('Неверный формат ИНН')
@@ -153,7 +158,7 @@
                         .animate({'paddingLeft':'2px'},400);
                       }
 
-                 if(document.getElementById('seria').value == "" || document.getElementById('nomer').value == "") 
+                 if(!rv_seria.test(document.getElementById('seria').value)) 
                 { 
                   // alert('pasp');
                    $(document.getElementById('er_pasp')).html('Неверный формат паспортных данных')
@@ -163,9 +168,8 @@
                 }
 
 
-                if(document.getElementById('kategory1').value = "...") 
+                if(document.getElementById('kategory1').value == "...") 
                 { 
-                  // alert(document.getElementById('kategory1').value);
                    $(document.getElementById('er_kat1')).html('Поле выбора категории не заполнено')
                         .css('color','red')
                         .animate({'paddingLeft':'5px'},400)
@@ -178,9 +182,8 @@
                       }
 
 
-                if(document.getElementById('kategory2').value = "...") 
+                if(document.getElementById('kategory2').value == "...") 
                 { 
-                  // alert(document.getElementById('kategory2').value);
                    $(document.getElementById('er_kat2')).html('Поле выбора подкатегории не заполнено')
                         .css('color','red')
                         .animate({'paddingLeft':'5px'},400)
