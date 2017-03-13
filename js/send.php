@@ -1,6 +1,6 @@
  ​<?php
 
-    $email = $_POST['email'];
+    $email = $_POST['mail'];
     $name = $_POST['name'];
 
     $to = "test@mail.ru";
