@@ -48,17 +48,21 @@
                 document.getElementById('4kat').style.display = 'none';
                 document.getElementById('change').style.display = '';
                 document.getElementById('category2').value = '...';
+                $(document.getElementById('er_kat1')).text("");
                 document.getElementById(this.id + 'kat').style.display = '';
             });
-        });
 
-        $(function () {
+            $('label[name="modal2"]').on('click', function () {
+                $(document.getElementById('er_kat2')).text("");
+            });
+
+
             $('label[name="modal2"]').on('click', function () {
                 var input = $('input[name="category2"]');
                 input.val($(this).text());
             });
             //Запрет на ввод любых символов кроме чисел в некоторые из полей
-            $('#inn, #series, #nomer, #year_birth, #year_pasp, #day_birth, #year_birth, #building, #k, #flat').numberMask();
+            $('#inn, #series, #number, #year_birth, #year_pasp, #day_birth, #year_birth, #building, #k, #flat').numberMask();
             $("#tel").mask("+7 (999) 999-99-99");
         });
     </script>
@@ -66,9 +70,11 @@
 <body>
 <header>
     <!-- <a href="index.html"><img src="img/logo.png"><a>-->
-    <font align="right"> Бета-версия</font>
-    <br>
-    <a href="old.html" align="right"> Вернуться на сайт </a>
+    <div align="right" style="max-width: 1000px;">
+        Бета-версия
+        <br>
+        <a href="old.html"> Вернуться на сайт </a>
+    </div>
 </header>
 <main>
     <h1> Электронная подача заявлений на материальную помощь </h1>
@@ -88,7 +94,7 @@
     <form id="service" name="service">
         <h2>Выберите институт</h2>
         <div>
-            <select id="institut" for="" style="width: 430px;">
+            <select id="institute" for="" name="institute" style="width: 430px;">
                 <option value="0" default selected>Выбрать...</option>
                 <option value="1">ИКНТ</option>
                 <option value="2">ИММИТ</option>
@@ -100,18 +106,18 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" id="surname" placeholder="Фамилия" style="width: 189px;">
+                    <input type="text" id="surname" name="surname" placeholder="Фамилия" style="width: 189px;">
                     <input type="text" id="name" name="name" placeholder="Имя" style="width: 189px;">
                 </td>
             </tr>
             <tr>
-                <td><input type="text" id="lastname" placeholder="Отчество" style="width: 406px;"></td>
+                <td><input type="text" id="lastname" name="lastname" placeholder="Отчество" style="width: 406px;"></td>
             </tr>
         </table>
         <div class="error" id="er_fio"></div>
 
         <h2>Выберите категорию выплаты</h2>
-        <select id="fund" style="width: 430px;">
+        <select id="fund" name="fund" style="width: 430px;">
             <option value="0" default selected>Выбрать...</option>
             <option> Фонд университета1</option>
             <option> Фонд университета2</option>
@@ -219,27 +225,28 @@
         </div>
         <h2> Введите ИНН </h2>
 
-        <input id="inn" type="text" maxlength="12" style="width: 406px;">
+        <input id="inn" name="inn" type="text" maxlength="12" style="width: 406px;">
         <label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой службы <a
                 href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label>
         <div class="error" id="er_inn"></div>
 
         <h2> Введите серию и номер паспорта </h2>
-        <input name="series" id="series" type="text" placeholder="Серия" maxlength="4" style="width: 139px;">
-        <input name="nomer" id="nomer" type="text" placeholder="Номер" maxlength="6" style="width: 240px;">
+        <input name="series" name="series" id="series" type="text" placeholder="Серия" maxlength="4"
+               style="width: 139px;">
+        <input id="number" name="number" type="text" placeholder="Номер" maxlength="6" style="width: 240px;">
         <label class="subtext"> при заполнении серии и номера паспорта, символ № не указывается </label>
         <div class="error" id="er_pasp"></div>
 
         <h2> Кем выдан паспорт </h2>
-        <input id="issued" type="text" style="width: 407px; text-transform: uppercase;"
+        <input id="issued" name="issued" type="text" style="width: 407px; text-transform: uppercase;"
                placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
         <label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с паспортом,
             используя CAPSLOCK (заглавные буквы) </label>
         <div class="error" id="er_issued"></div>
 
         <h2> Дата выдачи паспорта </h2>
-        <input id="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;">
-        <select id="month_pasp" style="width: 224px; background-color: #FAFAFA;">
+        <input id="day_pasp" name="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;">
+        <select id="month_pasp" name="month_pasp" style="width: 224px; background-color: #FAFAFA;">
             <option> Январь</option>
             <option> Февраль</option>
             <option> Март</option>
@@ -253,15 +260,15 @@
             <option> Ноябрь</option>
             <option> Декабрь</option>
         </select>
-        <input id="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
+        <input id="year_pasp" name="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
         <div class="error" id="er_iss "></div>
 
         <h2> Введите номер телефона </h2>
-        <input id="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;">
+        <input id="tel" name="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;">
         <div class="error" id="er_tel"></div>
 
         <h2> Введите дату рождения </h2>
-        <input id="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px; ">
+        <input id="day_birth" name="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px; ">
         <select id="month_birth" style="width: 224px; background-color: #FAFAFA;">
             <option> Январь</option>
             <option> Февраль</option>
@@ -276,25 +283,25 @@
             <option> Ноябрь</option>
             <option> Декабрь</option>
         </select>
-        <input id="year_birth" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
+        <input id="year_birth" name="year_birth" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
         <div class="error"></div>
 
         <h2> Введите адрес регистрации в Санкт-Петербурге </h2>
         <table>
             <tr>
                 <td>
-                    <input type="text" id="street" placeholder="Улица" style="width: 406px;">
+                    <input type="text" id="street" name="street" placeholder="Улица" style="width: 406px;">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="building" placeholder="Дом" style="width: 117px;">
-                    <input type="text" id="k" placeholder="Корпус" style="width: 117px;">
-                    <input type="text" id="flat" placeholder="Квартира" style="width: 117px;">
+                    <input type="text" id="building" name="building" placeholder="Дом" style="width: 117px;">
+                    <input type="text" id="k" name="k" placeholder="Корпус" style="width: 117px;">
+                    <input type="text" id="flat" name="flat" placeholder="Квартира" style="width: 117px;">
                 </td>
             </tr>
         </table>
-        <div class="error" id="er_adres"></div>
+        <div class="error" id="er_address"></div>
 
         <h2> Введите e-mail </h2>
         <input type="email" id="mail" name="mail" placeholder="example@mail.com" style="width: 406px;">
@@ -329,7 +336,7 @@
     </article>
 </main>
 <footer>
-    <div align="right"> Служба поддержки: help@gmail.com</div>
+    <div align="right" style="max-width: 1000px;"> Служба поддержки: help@gmail.com</div>
 </footer>
 </body>
 </html>

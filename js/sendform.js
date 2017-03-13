@@ -6,9 +6,9 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var val = $(this).val();
         var rv_email = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
-        /* var rv_inn = /^[0-9]{12}$/;
+        var rv_inn = /^[0-9]{12}$/;
          var rv_series = /^[0-9]{4}$/;
-         var rv_nomer = /^[0-9]{6}$/; */
+         var rv_number = /^[0-9]{6}$/;
         var rv_name = /^[a-zA-Zа-яА-Я]+$/;
 
         // После того, как поле потеряло фокус, перебираем значения id, совпадающее с id данного поля
@@ -127,10 +127,10 @@ $(document).ready(function () {
 
         var rv_inn = /^[0-9]{12}$/;
         var rv_series = /^[0-9]{4}$/;
-        var rv_nomer = /^[0-9]{6}$/;
+        var rv_number = /^[0-9]{6}$/;
         // var rv_name = /^[a-zA-Zа-яА-Я]+$/;
-        var n = document.getElementById('institut').options.selectedIndex;
-        if (document.getElementById('institut').options[n].value == "0") {
+        var n = document.getElementById('institute').options.selectedIndex;
+        if (document.getElementById('institute').options[n].value == "0") {
             // alert(document.getElementById('institut').value);
             $(document.getElementById('er_inst')).text('Поле выбора института не заполнено')
                 .css('color', 'red')
@@ -188,19 +188,20 @@ $(document).ready(function () {
 
 
 
-            $(document.getElementById('er_tel')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+
 
             $(document.getElementById('er_tel')).html('Неверный формат данных')
                 .css('color', 'red')
                 .animate({'paddingLeft': '5px'}, 400)
                 .animate({'paddingLeft': '2px'}, 400);
 
-            alert(document.getElementById('tel').value);
+
         }
         else {
+            $(document.getElementById('er_tel')).text('Принято')
+                .css('color', 'green')
+                .animate({'paddingLeft': '5px'}, 400)
+                .animate({'paddingLeft': '2px'}, 400);
 
 
         }
@@ -220,12 +221,12 @@ $(document).ready(function () {
 
         if (document.getElementById('street').value == "" || document.getElementById('k').value == "" || document.getElementById('building').value == "" || document.getElementById('flat').value == "") {
 
-            $(document.getElementById('er_adres')).html('Неверный формат адреса')
+            $(document.getElementById('er_address')).html('Неверный формат адреса')
                 .css('color', 'red')
                 .animate({'paddingLeft': '5px'}, 400)
                 .animate({'paddingLeft': '2px'}, 400);
         } else {
-            $(document.getElementById('er_adres')).text('Принято')
+            $(document.getElementById('er_address')).text('Принято')
                 .css('color', 'green')
                 .animate({'paddingLeft': '5px'}, 400)
                 .animate({'paddingLeft': '2px'}, 400);
@@ -245,7 +246,7 @@ $(document).ready(function () {
                 .animate({'paddingLeft': '2px'}, 400);
         }
 
-        if (!rv_series.test(document.getElementById('series').value) || !rv_nomer.test(document.getElementById('nomer').value)) {
+        if (!rv_series.test(document.getElementById('series').value) || !rv_number.test(document.getElementById('number').value)) {
             // alert('pasp');
             $(document.getElementById('er_pasp')).html('Неверный формат паспортных данных')
                 .css('color', 'red')

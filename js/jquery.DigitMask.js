@@ -1,6 +1,6 @@
 $.fn.numberMask = function (options) {
     var settings = {
-            type: 'int', beforePoint: 10, afterPoint: 2, defaultValueInput: 0,
+            type: 'int', beforePoint: 12, afterPoint: 2, defaultValueInput: 0,
             allowNegative: false, decimalMark: ['.'], pattern: ''
         },
         regExp,
