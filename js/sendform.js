@@ -1,222 +1,123 @@
 $(document).ready(function () {
 
-    // Устанавливаем обработчик потери фокуса для всех полей ввода текста
+
+    function YES(th) {
+        th.next('.error').text('Принято').css('color', 'green')
+            .animate({'paddingLeft': '5px'}, 400)
+            .animate({'paddingLeft': '2px'}, 400)
+            .addClass('not_error');
+    }
+
+    function NO(th) {
+        th.next('.error').html('Неверный формат данных').css('color', 'red')
+            .animate({'paddingLeft': '5px'}, 400)
+            .animate({'paddingLeft': '2px'}, 400)
+            .removeClass('not_error').addClass('is_error');
+    }
+
+    var rv_email = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+    var rv_inn = /^[0-9]{12}$/;
+    var rv_series = /^[0-9]{4}$/;
+    var rv_number = /^[0-9]{6}$/;
+    var rv_name = /^[a-zA-Zа-яА-Я]+$/;
+
+    // Устанавливаем обработчик потери фокуса для полей ввода текста
     $('input#name, input#surname, input#lastname, input#mail, input#issued, input#tel').unbind().blur(function () {
         // Для удобства записываем обращения к атрибуту и значению каждого поля в переменные
         var id = $(this).attr('id');
         var val = $(this).val();
-        var rv_email = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
-        var rv_inn = /^[0-9]{12}$/;
-         var rv_series = /^[0-9]{4}$/;
-         var rv_number = /^[0-9]{6}$/;
-        var rv_name = /^[a-zA-Zа-яА-Я]+$/;
 
         // После того, как поле потеряло фокус, перебираем значения id, совпадающее с id данного поля
         switch (id) {
-            case 'lastname':
-
-                if (val.length > 3 && val != '' && rv_name.test(val)) {
-                    $(this).addClass('not_error');
-                    $(this).next('.error').text('Принято')
-                        .css('color', 'green')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
-                }
-
-                // Иначе, мы удаляем класс not-error, и заменяем его на класс error, говоря о том что поле содержит ошибку валидации,
-                // и ниже в наш контейнер выводим сообщение об ошибке и параметры для верной валидации
-
-                else {
-                    //  $(this).removeClass('not_error').addClass('error');
-
-                    $(this).next('.error').html('Имя введено неверно')
-                        .css('color', 'red')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
-                }
-                break;
 
             case 'name':
-                if (val.length > 2 && val != '' && rv_name.test(val)) {
-                    $(this).addClass('not_error');
-                    $(this).next('.error').text('Принято')
-                        .css('color', 'green')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+            case 'surname':
+            case 'lastname':
+                if (val.length >= 2 && val != '' && rv_name.test(val)) {
+                    YES($('input#lastname'));
                 }
-
-                // Иначе, мы удаляем класс not-error, и заменяем его на класс error, говоря о том что поле содержит ошибку валидации,
-                // и ниже в наш контейнер выводим сообщение об ошибке и параметры для верной валидации
-
                 else {
-                    //  $(this).removeClass('not_error').addClass('error');
-
-                    $(document.getElementById('er_fio')).html('Неверный формат ФИО')
-                        .css('color', 'red')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+                    NO($('input#lastname'));
                 }
                 break;
 
             case 'mail':
-                //alert('email');
                 if (val != '' && rv_email.test(val)) {
-
-                    $(document.getElementById('er_mail')).text('Принято')
-                        .css('color', 'green')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
-                    $("#valid").css({
-                        "background-image": "none"
-                    });
+                    YES($(this));
                 }
                 else {
-
-                    $(document.getElementById('er_mail')).html('Неверный формат')
-                        .css('color', 'red')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
-
+                    NO($(this));
                 }
                 break;
 
             case 'inn':
-                //  alert('inn');
-                if (val != '') {
-
-                    $(this).next('.error').text('Принято')
-                        .css('color', 'green')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+                if (val != '' && rv_inn.test(val)) {
+                    YES($(this));
                 }
                 else {
-
-                    $(this).next('.error').html('Неверный формат ИНН')
-                        .css('color', 'red')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+                    NO($(this));
                 }
                 break;
 
             case 'issued':
-                //  alert('inn');
                 if (val != '') {
-
-                    $(document.getElementById('er_issued')).text('Принято')
-                        .css('color', 'green')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+                    YES($(this));
                 }
                 else {
-
-                    $(document.getElementById('er_issued')).html('Неверный формат данных')
-                        .css('color', 'red')
-                        .animate({'paddingLeft': '5px'}, 400)
-                        .animate({'paddingLeft': '2px'}, 400);
+                    NO($(this));
                 }
                 break;
-
-
         } // end switch(...)
 
     }); // end blur()
 
-
     // Теперь отправим с помощью AJAX
     $('form#service').submit(function (e) {
 
-        var rv_inn = /^[0-9]{12}$/;
-        var rv_series = /^[0-9]{4}$/;
-        var rv_number = /^[0-9]{6}$/;
         // var rv_name = /^[a-zA-Zа-яА-Я]+$/;
-        var n = document.getElementById('institute').options.selectedIndex;
-        if (document.getElementById('institute').options[n].value == "0") {
-            // alert(document.getElementById('institut').value);
-            $(document.getElementById('er_inst')).text('Поле выбора института не заполнено')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+
+
+        if ($('select#institute').val() == "0") {
+
+            NO($('select#institute'));
         } else {
-            $(document.getElementById('er_inst')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('select#institute'));
         }
 
-        n = document.getElementById('fund').options.selectedIndex;
-        if (document.getElementById('fund').options[n].value == "0") {
-            // alert(document.getElementById('institut').value);
-            $(document.getElementById('er_fund')).text('Поле выбора категории оплаты не заполнено')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+
+        if ($('select#fund').val() == "0") {
+            NO($('select#fund'));
         } else {
-            $(document.getElementById('er_fund')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('select#fund'));
         }
 
 
         if (document.getElementById('mail').value == "") {
-            $(document.getElementById('er_mail')).text('Неверный формат E-Mail')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#mail'));
         } else {
-            $(document.getElementById('er_mail')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#mail'));
         }
 
 
         if (document.getElementById('issued').value == "") {
 
-            $(document.getElementById('er_issued')).text('Неверный формат данных')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#issued'));
         } else {
-            $(document.getElementById('er_issued')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#issued'));
         }
 
         if (document.getElementById('tel').value == "") {
-
-
-
-
-
-            $(document.getElementById('er_tel')).html('Неверный формат данных')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
-
-
+            NO($('input#tel'));
         }
         else {
-            $(document.getElementById('er_tel')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
-
-
+            YES($('input#tel'));
         }
 
         if (document.getElementById('lastname').value == "" || document.getElementById('surname').value == "" || document.getElementById('name').value == "") {
 
-            $(document.getElementById('er_fio')).html('Неверный формат ФИО')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#lastname'));
         } else {
-            $(document.getElementById('er_fio')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#lastname'));
         }
 
         if (document.getElementById('street').value == "" || document.getElementById('k').value == "" || document.getElementById('building').value == "" || document.getElementById('flat').value == "") {
@@ -235,55 +136,31 @@ $(document).ready(function () {
 
         if (!rv_inn.test(document.getElementById('inn').value)) {
             // alert('inn');
-            $(document.getElementById('er_inn')).html('Неверный формат ИНН')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#inn'));
         } else {
-            $(document.getElementById('er_inn')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#inn'));
         }
 
         if (!rv_series.test(document.getElementById('series').value) || !rv_number.test(document.getElementById('number').value)) {
             // alert('pasp');
-            $(document.getElementById('er_pasp')).html('Неверный формат паспортных данных')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#number'));
         }
         else {
-            $(document.getElementById('er_pasp')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#number'));
         }
 
 
         if (document.getElementById('category1').value == "...") {
-            $(document.getElementById('er_kat1')).html('Поле выбора категории не заполнено')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#category1'));
         } else {
-            $(document.getElementById('er_kat1')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#category1'));
         }
 
 
         if (document.getElementById('category2').value == "...") {
-            $(document.getElementById('er_kat2')).html('Поле выбора подкатегории не заполнено')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            NO($('input#category2'));
         } else {
-            $(document.getElementById('er_kat2')).text('Принято')
-                .css('color', 'green')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
+            YES($('input#category2'));
         }
 
         //  alert(document.getElementById('tel').value);
@@ -295,8 +172,8 @@ $(document).ready(function () {
         // если кол-во полей с классов .not_error равно 3(так как у нас всего 3 поля), то есть все поля заполнены верно,
         // выполняем наш Ajax сценарий и отправляем письмо адресату
 
-        if ($('.not_error').length == 3) {
-
+        if ($('.not_error').length == 5) {
+            alert("SUCCESS!");
             // Eще одним моментов является то, что в качестве указания данных для передачи обработчику send.php, мы обращаемся $(this) к нашей форме,
             // и вызываем метод .serieslize().
             // Это очень удобно, т.к. он сразу возвращает сгенерированную строку с именами и значениями выбранных элементов формы.
@@ -318,6 +195,7 @@ $(document).ready(function () {
             }); // end ajax({...})
         }
         else {
+            alert("FAILED" + $('.not_error').length);
             return false;
         }
         // Иначе, если количество полей с данным классом не равно значению 3 мы возвращаем false,
@@ -327,4 +205,5 @@ $(document).ready(function () {
     }); // end submit()
 
 
-});
+})
+;
