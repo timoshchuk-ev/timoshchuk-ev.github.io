@@ -11,6 +11,11 @@
     <script src="js/jquery.DigitMask.js"></script> <!-- Скрипт для маски числовых полей-->
     <script src="js/jquery.TelMask.js"></script>  <!--Скрипт для маски телефона-->
     <script type="text/javascript">
+        //Скрипт для динамического отображения правильности ввода e-mail
+        function isValidEmailAddress(emailAddress) {
+            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            return pattern.test(emailAddress);
+        }
         $(document).ready(function () {
             $("#mail").keyup(function () {
                 var email = $("#mail").val();
@@ -30,37 +35,59 @@
                     });
                 }
             });
-        });
 
-        function isValidEmailAddress(emailAddress) {
-            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-            return pattern.test(emailAddress);
-        }
+            var div = document.createElement('div');
+            div.classList.add("modal-body");
+            var N;
 
-        $(function () {
-            $('label[name="modal1"]').on('click', function () {
-                var input = $('input[id="category1"]');
-                input.val($(this).text());
-                if (input.value != $(this).text()) $('input[name="category2"]').val("");
-                document.getElementById('1kat').style.display = 'none';
-                document.getElementById('2kat').style.display = 'none';
-                document.getElementById('3kat').style.display = 'none';
-                document.getElementById('4kat').style.display = 'none';
-                document.getElementById('change').style.display = '';
-                document.getElementById('category2').value = '...';
-                $(document.getElementById('er_kat1')).text("");
-                document.getElementById(this.id + 'kat').style.display = '';
+            //Формируем первый список из опций главного select
+            $('#change1').on('click', function () {
+                var HTMLtext = "";
+                var select = document.getElementById('main_category');
+                var options = select.options;
+
+                for (var i = 0; i < options.length; i++) {
+                    HTMLtext = HTMLtext + " <label class='btn' name='modal1' for='modal1' data-id='" + (i+1) + "'>" + options[i].text + "</label> ";
+
+                }
+                div.innerHTML = HTMLtext;
+                document.getElementById('list1').appendChild(div);
+
+
+                //Формируем второй список исходя из выбора в первом списке
+                $('label[name="modal1"]').on('click', function () {
+
+                    var input = $('input[id="category1"]');
+                    $(document.getElementById('er_kat1')).text("");
+                    input.val($(this).text());
+                    if (input.value != $(this).text()) $('input[name="category2"]').val("");
+                    N = this.getAttribute('data-id');
+                    document.getElementById('change2').style.display = '';
+                    document.getElementById('category2').value = '...';
+                });
             });
 
-            $('label[name="modal2"]').on('click', function () {
-                $(document.getElementById('er_kat2')).text("");
-            });
+            $('#change2').on('click', function () {
+
+                select = document.getElementById('sub_category');
+                var options = select.options;
+                HTMLtext = "";
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].getAttribute('data-category') == N) {
+                        HTMLtext = HTMLtext + " <label class='btn' name='modal2' for='modal2'>" + options[i].text + "</label> ";
+                    }
+                }
+                div.innerHTML = HTMLtext;
+                document.getElementById('list2').appendChild(div);
 
 
-            $('label[name="modal2"]').on('click', function () {
-                var input = $('input[name="category2"]');
-                input.val($(this).text());
+                $('label[name="modal2"]').on('click', function () {
+                    $(document.getElementById('er_kat2')).text("");
+                    var input = $('input[name="category2"]');
+                    input.val($(this).text());
+                });
             });
+
             //Запрет на ввод любых символов кроме чисел в некоторые из полей
             $('#inn, #series, #number, #year_birth, #year_pasp, #day_birth, #year_birth, #building, #k, #flat').numberMask();
             $("#tel").mask("+7 (999) 999-99-99");
@@ -92,224 +119,279 @@
         </p>
     </section>
     <form id="service" name="service">
-        <h2>Выберите институт</h2>
-        <div>
-            <select id="institute" for="" name="institute" style="width: 430px;">
-                <option value="0" default selected>Выбрать...</option>
-                <option value="1">ИКНТ</option>
-                <option value="2">ИММИТ</option>
-            </select>
-            <div class="error" id="er_inst"></div>
-        </div>
-
-        <h2>Как вас зовут</h2>
         <table>
             <tr>
-                <td>
-                    <input type="text" id="surname" name="surname" placeholder="Фамилия" style="width: 189px;">
-                    <input type="text" id="name" name="name" placeholder="Имя" style="width: 189px;">
+                <td colspan="2">
+                    <h2>Выберите институт</h2>
+                    <div>
+                        <select id="institute" for="" name="institute" style="width: 430px;">
+                            <option value="0" default selected>Выбрать...</option>
+                            <option value="1">ИКНТ</option>
+                            <option value="2">ИММИТ</option>
+                        </select>
+                        <div class="error" id="er_inst"></div>
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td><input type="text" id="lastname" name="lastname" placeholder="Отчество" style="width: 406px;"></td>
+                <td colspan="2">
+                    <h2>Как вас зовут</h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" id="surname" name="surname" placeholder="Фамилия"
+                                       style="width: 189px;">
+                                <input type="text" id="name" name="name" placeholder="Имя" style="width: 189px;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="lastname" name="lastname" placeholder="Отчество"
+                                       style="width: 406px;">
+                                <div class="error" id="er_fio"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
+
+            <tr>
+                <td>
+                    <h2>Выберите категорию выплаты</h2>
+                    <select id="fund" name="fund" style="width: 430px;">
+                        <option value="0" default selected>Выбрать...</option>
+                        <option> Фонд университета1</option>
+                        <option> Фонд университета2</option>
+                        <option> Фонд университета3</option>
+                    </select>
+                    <div class="error" id="er_fund"></div>
+                </td>
+                <td>
+                    <label class="subtext"> выплаты из Фонда университета назначаются студентам, обучающимся на
+                        бюджетной основе по очной форме обучения </label></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h2>Выберите категорию подачи</h2>
+                    <input type="text" id="category1" name="category1" placeholder="Не выбрано"
+                           style="width: 406px; /* border: 0px; */" value="..." disabled>
+                    <div class="error" id="er_kat1"></div>
+                </td>
+
+                <!-- Кнопка активации -->
+                <td><label class="btn-primary" for="modal1" style="margin-left: 10px;" id="change1"> Изменить </label>
+                    <select name="main_category" id="main_category" style="display: none;">
+                        <option value="1"> Категория 1 для получения материальной помощи</option>
+                        <option value="2"> Категория 2 для получения материальной помощи</option>
+                        <option value="3"> Категория 3 для получения материальной помощи</option>
+                        <option value="4"> Категория 4 для получения материальной помощи</option>
+                    </select>
+                    <!-- Модальное окно -->
+                    <div class="modal" name="modal1">
+                        <input class="modal-open" id="modal1" type="checkbox" hidden>
+                        <div class="modal-wrap" aria-hidden="true" role="dialog">
+                            <label class="modal-overlay" for="modal1"></label>
+                            <div class="modal-dialog">
+                                <div id="list1" class="modal-header">
+                                    <h2> Категория подачи </h2>
+                                    <label class="btn-close" aria-hidden="true" for="modal1">×</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><h2>Выберите подкатегорию подачи</h2>
+                    <input type="text" id="category2" name="category2" placeholder="Не выбрано"
+                           style="width: 406px; /* border: 0px; */" value="..." disabled>
+                    <div class="error" id="er_kat2"></div>
+                </td>
+
+                <!-- Кнопка активации -->
+                <td><label class="btn-primary" for="modal2" id="change2"
+                           style="display: none; margin-left: 10px;">
+                    Изменить </label>
+                    <select name="sub_category" id="sub_category" style="display: none;">
+                        <option data-category="1" value="0"> Подкатегория 1 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 2 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 3 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 4 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 1 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 2 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 3 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 4 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 1 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 2 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 3 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 4 категории 3 для получения мат помощи
+                        </option>
+                    </select>
+                    <!-- Модальное окно -->
+                    <div class="modal" name="modal2">
+                        <input class="modal-open" id="modal2" type="checkbox" hidden>
+                        <div class="modal-wrap" aria-hidden="true" role="dialog">
+                            <label class="modal-overlay" for="modal2"></label>
+                            <div class="modal-dialog">
+                                <div class="modal-header" id="list2">
+                                    <h2> Подкатегория подачи </h2>
+                                    <label class="btn-close" aria-hidden="true" for="modal2">×</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2> Введите ИНН </h2>
+                    <input id="inn" name="inn" type="text" maxlength="12" style="width: 406px;">
+                    <div class="error" id="er_inn"></div>
+                </td>
+                <td>
+                    <label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой
+                        службы <a href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label></td>
+
+            </tr>
+            <tr>
+                <td>
+                    <h2> Введите серию и номер паспорта </h2>
+                    <input name="series" name="series" id="series" type="text" placeholder="Серия"
+                           maxlength="4"
+                           style="width: 139px;">
+                    <input id="number" name="number" type="text" placeholder="Номер" maxlength="6"
+                           style="width: 240px;">
+                    <div class="error" id="er_pasp"></div>
+                </td>
+                <td><label class="subtext"> при заполнении серии и номера паспорта, символ № не
+                    указывается </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2> Кем выдан паспорт </h2>
+                    <input id="issued" name="issued" type="text"
+                           style="width: 407px; text-transform: uppercase;"
+                           placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
+                    <div class="error" id="er_issued"></div>
+                </td>
+                <td>
+                    <label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с
+                        паспортом,
+                        используя CAPSLOCK (заглавные буквы) </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h2> Дата выдачи паспорта </h2>
+                    <input id="day_pasp" name="day_pasp" type="text" placeholder="День" maxlength="2"
+                           style="width: 50px;">
+                    <select id="month_pasp" name="month_pasp" style="width: 224px; background-color: #FAFAFA;">
+                        <option> Январь</option>
+                        <option> Февраль</option>
+                        <option> Март</option>
+                        <option> Апрель</option>
+                        <option> Май</option>
+                        <option> Июнь</option>
+                        <option> Июль</option>
+                        <option> Август</option>
+                        <option> Сентябрь</option>
+                        <option> Октябрь</option>
+                        <option> Ноябрь</option>
+                        <option> Декабрь</option>
+                    </select>
+                    <input id="year_pasp" name="year_pasp" type="text" placeholder="Год" maxlength="4"
+                           style="width: 100px;">
+                    <div class="error" id="er_iss "></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h2> Введите номер телефона </h2>
+                    <input id="tel" name="tel" type="tel" placeholder="+7 (999) 000-01-01"
+                           style="width: 406px;">
+                    <div class="error" id="er_tel"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h2> Введите дату рождения </h2>
+                    <input id="day_birth" name="day_birth" type="text" placeholder="День" maxlength="2"
+                           style="width: 50px; ">
+                    <select id="month_birth" style="width: 224px; background-color: #FAFAFA;">
+                        <option> Январь</option>
+                        <option> Февраль</option>
+                        <option> Март</option>
+                        <option> Апрель</option>
+                        <option> Май</option>
+                        <option> Июнь</option>
+                        <option> Июль</option>
+                        <option> Август</option>
+                        <option> Сентябрь</option>
+                        <option> Октябрь</option>
+                        <option> Ноябрь</option>
+                        <option> Декабрь</option>
+                    </select>
+                    <input id="year_birth" name="year_birth" type="text" placeholder="Год" maxlength="4"
+                           style="width: 100px;">
+                    <div class="error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h2> Введите адрес регистрации в Санкт-Петербурге </h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" id="street" name="street" placeholder="Улица"
+                                       style="width: 406px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="building" name="building" placeholder="Дом"
+                                       style="width: 117px;">
+                                <input type="text" id="k" name="k" placeholder="Корпус"
+                                       style="width: 117px;">
+                                <input type="text" id="flat" name="flat" placeholder="Квартира"
+                                       style="width: 117px;">
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="error" id="er_address"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h2> Введите e-mail </h2>
+                    <input type="email" id="mail" name="mail" placeholder="example@mail.com"
+                           style="width: 406px;">
+
+                    <div class="error" id="er_mail"></div>
+                </td>
+                <td><span id="valid"></span></td>
+            </tr>
+
         </table>
-        <div class="error" id="er_fio"></div>
-
-        <h2>Выберите категорию выплаты</h2>
-        <select id="fund" name="fund" style="width: 430px;">
-            <option value="0" default selected>Выбрать...</option>
-            <option> Фонд университета1</option>
-            <option> Фонд университета2</option>
-            <option> Фонд университета3</option>
-        </select>
-        <label class="subtext"> выплаты из Фонда университета назначаются студентам, обучающимся на бюджетной основе
-            по очной форме обучения </label>
-        <div class="error" id="er_fund"></div>
-
-        <h2>Выберите категорию подачи</h2>
-        <input type="text" id="category1" name="category1" placeholder="Не выбрано"
-               style="width: 406px; /* border: 0px; */" value="..." disabled>
-        <!-- Кнопка активации -->
-        <label class="btn-primary" for="modal1" style="margin-left: 10px;"> Изменить </label>
-        <div class="error" id="er_kat1"></div>
-
-        <!-- Модальное окно -->
-        <div class="modal" name="modal1">
-            <input class="modal-open" id="modal1" type="checkbox" hidden>
-            <div class="modal-wrap" aria-hidden="true" role="dialog">
-                <label class="modal-overlay" for="modal1"></label>
-                <div class="modal-dialog">
-                    <div class="modal-header">
-                        <h2> Категория подачи </h2>
-                        <label class="btn-close" aria-hidden="true" for="modal1">×</label>
-                    </div>
-                    <div class="modal-body">
-
-                        <label class="btn" name="modal1" id="1" for="modal1">Категория 1 для получения материальной
-                            помощи от профсоюза </label>
-                        <label class="btn" name="modal1" id="2" for="modal1">Категория 2 для получения материальной
-                            помощи от профсоюза</label>
-                        <label class="btn" name="modal1" id="3" for="modal1">Категория 3 для получения материальной
-                            помощи от профсоюза </label>
-                        <label class="btn" name="modal1" id="4" for="modal1">Категория 4 для получения материальной
-                            помощи от профсоюза </label>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <h2>Выберите подкатегорию подачи</h2>
-        <input type="text" id="category2" name="category2" placeholder="Не выбрано"
-               style="width: 406px; /* border: 0px; */" value="..." disabled>
-        <!-- Кнопка активации -->
-        <label class="btn-primary" for="modal2" id="change" style="display: none; margin-left: 10px;">
-            Изменить </label>
-        <div class="error" id="er_kat2"></div>
-
-        <!-- Модальное окно -->
-        <div class="modal" name="modal2">
-            <input class="modal-open" id="modal2" type="checkbox" hidden>
-            <div class="modal-wrap" aria-hidden="true" role="dialog">
-                <label class="modal-overlay" for="modal2"></label>
-                <div class="modal-dialog">
-                    <div class="modal-header">
-                        <h2> Подкатегория подачи </h2>
-                        <label class="btn-close" aria-hidden="true" for="modal2">×</label>
-                    </div>
-                    <div class="modal-body">
-                        <p id="1kat">
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 1 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 1 для получения
-                                материальной помощи от профсоюза </label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 1 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 1 для получения
-                                материальной помощи от профсоюза</label>
-                        </p>
-                        <p id="2kat">
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 2 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 2 для получения
-                                материальной помощи от профсоюза </label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 2 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 2 для получения
-                                материальной помощи от профсоюза</label>
-                        </p>
-                        <p id="3kat">
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 3 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 3 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 3 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 3 для получения
-                                материальной помощи от профсоюза </label>
-                        </p>
-                        <p id="4kat">
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 1 категории 4 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 2 категории 4 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 3 категории 4 для получения
-                                материальной помощи от профсоюза</label>
-                            <label class="btn" name="modal2" for="modal2">Подкатегория 4 категории 4 для получения
-                                материальной помощи от профсоюза</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h2> Введите ИНН </h2>
-
-        <input id="inn" name="inn" type="text" maxlength="12" style="width: 406px;">
-        <label class="subtext"> номер своего ИНН можно узнать на сайте Федеральной налоговой службы <a
-                href="https://service.nalog.ru/inn.do"> servie.nalog.ru </a> </label>
-        <div class="error" id="er_inn"></div>
-
-        <h2> Введите серию и номер паспорта </h2>
-        <input name="series" name="series" id="series" type="text" placeholder="Серия" maxlength="4"
-               style="width: 139px;">
-        <input id="number" name="number" type="text" placeholder="Номер" maxlength="6" style="width: 240px;">
-        <label class="subtext"> при заполнении серии и номера паспорта, символ № не указывается </label>
-        <div class="error" id="er_pasp"></div>
-
-        <h2> Кем выдан паспорт </h2>
-        <input id="issued" name="issued" type="text" style="width: 407px; text-transform: uppercase;"
-               placeholder="ТП №10 УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ">
-        <label class="subtext"> Данные о выдаче паспорта указываются строго в соответствии с паспортом,
-            используя CAPSLOCK (заглавные буквы) </label>
-        <div class="error" id="er_issued"></div>
-
-        <h2> Дата выдачи паспорта </h2>
-        <input id="day_pasp" name="day_pasp" type="text" placeholder="День" maxlength="2" style="width: 50px;">
-        <select id="month_pasp" name="month_pasp" style="width: 224px; background-color: #FAFAFA;">
-            <option> Январь</option>
-            <option> Февраль</option>
-            <option> Март</option>
-            <option> Апрель</option>
-            <option> Май</option>
-            <option> Июнь</option>
-            <option> Июль</option>
-            <option> Август</option>
-            <option> Сентябрь</option>
-            <option> Октябрь</option>
-            <option> Ноябрь</option>
-            <option> Декабрь</option>
-        </select>
-        <input id="year_pasp" name="year_pasp" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
-        <div class="error" id="er_iss "></div>
-
-        <h2> Введите номер телефона </h2>
-        <input id="tel" name="tel" type="tel" placeholder="+7 (999) 000-01-01" style="width: 406px;">
-        <div class="error" id="er_tel"></div>
-
-        <h2> Введите дату рождения </h2>
-        <input id="day_birth" name="day_birth" type="text" placeholder="День" maxlength="2" style="width: 50px; ">
-        <select id="month_birth" style="width: 224px; background-color: #FAFAFA;">
-            <option> Январь</option>
-            <option> Февраль</option>
-            <option> Март</option>
-            <option> Апрель</option>
-            <option> Май</option>
-            <option> Июнь</option>
-            <option> Июль</option>
-            <option> Август</option>
-            <option> Сентябрь</option>
-            <option> Октябрь</option>
-            <option> Ноябрь</option>
-            <option> Декабрь</option>
-        </select>
-        <input id="year_birth" name="year_birth" type="text" placeholder="Год" maxlength="4" style="width: 100px;">
-        <div class="error"></div>
-
-        <h2> Введите адрес регистрации в Санкт-Петербурге </h2>
-        <table>
-            <tr>
-                <td>
-                    <input type="text" id="street" name="street" placeholder="Улица" style="width: 406px;">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" id="building" name="building" placeholder="Дом" style="width: 117px;">
-                    <input type="text" id="k" name="k" placeholder="Корпус" style="width: 117px;">
-                    <input type="text" id="flat" name="flat" placeholder="Квартира" style="width: 117px;">
-                </td>
-            </tr>
-        </table>
-        <div class="error" id="er_address"></div>
-
-        <h2> Введите e-mail </h2>
-        <input type="email" id="mail" name="mail" placeholder="example@mail.com" style="width: 406px;">
-        <span id="valid"></span>
-        <div class="error" id="er_mail"></div>
-        <br>
         <input type="submit" class="btn-primary" value="Подать заявление">
-
     </form>
 
     <!-- Модальное окно -->
@@ -336,7 +418,7 @@
     </article>
 </main>
 <footer>
-    <div align="right" style="max-width: 1000px;"> Служба поддержки: help@gmail.com</div>
+    <div align="right"> Служба поддержки: help@gmail.com</div>
 </footer>
 </body>
 </html>
