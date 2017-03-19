@@ -19,25 +19,43 @@ $(document).ready(function () {
     var rv_inn = /^[0-9]{12}$/;
     var rv_series = /^[0-9]{4}$/;
     var rv_number = /^[0-9]{6}$/;
-    var rv_name = /^[a-zA-Zа-яА-Я]+$/;
+    var rv_k = /^[0-9]{1}$/;
+    var rv_flat = /^[0-9]{4}$/;
+    var rv_building = /^[0-9]{3}$/;
+    var rv_name = /^[a-zA-Zа-яА-Я]{2,}$/;
+
 
     // Устанавливаем обработчик потери фокуса для полей ввода текста
-    $('input#name, input#surname, input#lastname, input#mail, input#issued, input#tel').unbind().blur(function () {
+    $('input#name, input#surname, input#lastname, input#mail, input#issued, input#tel, input#inn, input#series, input#number, input#flat, input#building, input#k').unbind().blur(function () {
         // Для удобства записываем обращения к атрибуту и значению каждого поля в переменные
+        // После того, как поле потеряло фокус, перебираем значения id, совпадающее с id данного поля
         var id = $(this).attr('id');
         var val = $(this).val();
 
-        // После того, как поле потеряло фокус, перебираем значения id, совпадающее с id данного поля
         switch (id) {
 
             case 'name':
             case 'surname':
             case 'lastname':
-                if (val.length >= 2 && val != '' && rv_name.test(val)) {
+                if (rv_name.test($('#lastname').val()) && rv_name.test($('#name').val()) && rv_name.test($('#surname').val())) {
+
                     YES($('input#lastname'));
                 }
                 else {
                     NO($('input#lastname'));
+                }
+                break;
+
+
+            case 'building':
+            case 'k':
+            case 'flat':
+                if (rv_building.test($('#building').val()) && rv_k.test($('#k').val()) && rv_flat.test($('#flat').val())) {
+
+                    YES($('input#flat'));
+                }
+                else {
+                    NO($('input#flat'));
                 }
                 break;
 
@@ -60,13 +78,25 @@ $(document).ready(function () {
                 break;
 
             case 'issued':
-                if (val != '') {
+                if (val != '' && rv_name.test(val)) {
                     YES($(this));
                 }
                 else {
                     NO($(this));
                 }
                 break;
+
+            case 'series':
+            case 'number':
+                if (rv_series.test($('#series').val()) && rv_number.test($('#number').val())) {
+                    YES($(this));
+                }
+                else {
+                    NO($(this));
+                }
+                break;
+
+
         } // end switch(...)
 
     }); // end blur()
@@ -75,7 +105,8 @@ $(document).ready(function () {
     $('form#service').submit(function (e) {
 
         // var rv_name = /^[a-zA-Zа-яА-Я]+$/;
-
+        var id = $(this).attr('id');
+        var val = $(this).val();
 
         if ($('select#institute').val() == "0") {
 
@@ -99,33 +130,35 @@ $(document).ready(function () {
         }
 
 
-        if (document.getElementById('issued').value == "") {
+        if ($('input#tel').val() == "") {
 
             NO($('input#issued'));
         } else {
             NO($('input#issued'));
         }
 
-        if (document.getElementById('tel').value == "") {
+        if ($('input#tel').val() == "" || rv_tel.test(val)) {
             NO($('input#tel'));
+
         }
         else {
             YES($('input#tel'));
         }
 
-        if (document.getElementById('lastname').value == "" || document.getElementById('surname').value == "" || document.getElementById('name').value == "") {
+        if ($('input#name').val() == "" || $('input#surname').val() == "" || $('input#lasname').val() == "") {
 
             NO($('input#lastname'));
         } else {
             YES($('input#lastname'));
         }
 
-        if (document.getElementById('street').value == "" || document.getElementById('k').value == "" || document.getElementById('building').value == "" || document.getElementById('flat').value == "") {
+        if ($('input#street').val() == "" || $('input#k').val() == "" || $('input#building').val() == "" || $('input#flat').val() == "") {
 
             $(document.getElementById('er_address')).html('Неверный формат адреса')
                 .css('color', 'red')
                 .animate({'paddingLeft': '5px'}, 400)
                 .animate({'paddingLeft': '2px'}, 400);
+
         } else {
             $(document.getElementById('er_address')).text('Принято')
                 .css('color', 'green')
@@ -150,14 +183,15 @@ $(document).ready(function () {
         }
 
 
-        if (document.getElementById('category1').value == "...") {
+        if ($('input#category1').val() == "...") {
             NO($('input#category1'));
-        } else {
+        }
+        else {
             YES($('input#category1'));
         }
 
 
-        if (document.getElementById('category2').value == "...") {
+        if ($('input#category2').val() == "...") {
             NO($('input#category2'));
         } else {
             YES($('input#category2'));
@@ -205,5 +239,4 @@ $(document).ready(function () {
     }); // end submit()
 
 
-})
-;
+});
