@@ -47,7 +47,7 @@
                 var options = select.options;
 
                 for (var i = 0; i < options.length; i++) {
-                    HTMLtext = HTMLtext + " <label class='btn' name='modal1' for='modal1' data-id='" + (i+1) + "'>" + options[i].text + "</label> ";
+                    HTMLtext = HTMLtext + " <label class='btn' name='modal1' for='modal1' data-id='" + (i + 1) + "'>" + options[i].text + "</label> ";
 
                 }
                 div.innerHTML = HTMLtext;
@@ -64,6 +64,10 @@
                     N = this.getAttribute('data-id');
                     document.getElementById('change2').style.display = '';
                     document.getElementById('category2').value = '...';
+                    input.next('.error').text('Принято').css('color', 'green')
+                        .animate({'paddingLeft': '5px'}, 400)
+                        .animate({'paddingLeft': '2px'}, 400)
+                        .addClass('not_error');
                 });
             });
 
@@ -85,8 +89,32 @@
                     $(document.getElementById('er_kat2')).text("");
                     var input = $('input[name="category2"]');
                     input.val($(this).text());
+                    input.next('.error').text('Принято').css('color', 'green')
+                        .animate({'paddingLeft': '5px'}, 400)
+                        .animate({'paddingLeft': '2px'}, 400)
+                        .addClass('not_error');
                 });
             });
+
+
+            $('#fund').on('change', function () {
+
+
+                $('#fund').next('.error').text('Принято').css('color', 'green')
+                    .animate({'paddingLeft': '5px'}, 400)
+                    .animate({'paddingLeft': '2px'}, 400)
+                    .addClass('not_error');
+            });
+
+            $('#institute').on('change', function () {
+
+
+                $('#institute').next('.error').text('Принято').css('color', 'green')
+                    .animate({'paddingLeft': '5px'}, 400)
+                    .animate({'paddingLeft': '2px'}, 400)
+                    .addClass('not_error');
+            });
+
 
             //Запрет на ввод любых символов кроме чисел в некоторые из полей
             $('#inn, #series, #number, #year_birth, #year_pasp, #day_birth, #year_birth, #building, #k, #flat').numberMask();
@@ -214,6 +242,30 @@
                            style="display: none; margin-left: 10px;">
                     Изменить </label>
                     <select name="sub_category" id="sub_category" style="display: none;">
+                        <option data-category="1" value="0"> Подкатегория 1 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 2 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 3 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="1" value="0"> Подкатегория 4 категории 1 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 1 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 2 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 3 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="2" value="0"> Подкатегория 4 категории 2 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 1 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 2 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 3 категории 3 для получения мат помощи
+                        </option>
+                        <option data-category="3" value="0"> Подкатегория 4 категории 3 для получения мат помощи
+                        </option>
                         <option data-category="1" value="0"> Подкатегория 1 категории 1 для получения мат помощи
                         </option>
                         <option data-category="1" value="0"> Подкатегория 2 категории 1 для получения мат помощи
@@ -372,10 +424,12 @@
                                        style="width: 117px;">
                                 <input type="text" id="flat" name="flat" placeholder="Квартира"
                                        style="width: 117px;">
+                                <div class="error" id="er_address"></div>
                             </td>
+
                         </tr>
                     </table>
-                    <div class="error" id="er_address"></div>
+
                 </td>
             </tr>
 
