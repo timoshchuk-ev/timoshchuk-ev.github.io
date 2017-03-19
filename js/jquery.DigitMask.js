@@ -1,6 +1,6 @@
 $.fn.numberMask = function (options) {
     var settings = {
-            type: 'int', beforePoint: 12, afterPoint: 2, defaultValueInput: 0,
+            type: 'int', beforePoint: 12, afterPoint: 2, defaultValueInput: '',
             allowNegative: false, decimalMark: ['.'], pattern: ''
         },
         regExp,
@@ -100,7 +100,7 @@ $.fn.numberMask = function (options) {
     } else {
         var negRegExpPart = settings.allowNegative ? "[-]?" : '',
             intRegExp = "^" + negRegExpPart + "\\d{1," + settings.beforePoint + "}$",
-            decimalRegExp = "^" + negRegExpPart + "\\d{1," + settings.beforePoint + "}" + getDecimalMarksString() + "\\d{0," + settings.afterPoint + "}$";
+            decimalRegExp = "^" + negRegExpPart + "\\d{1," + settings.Point + "}" + getDecimalMarksString() + "\\d{0," + settings.afterPoint + "}$";
 
         if (settings.type == 'int') {
             regExp = new RegExp(intRegExp);
