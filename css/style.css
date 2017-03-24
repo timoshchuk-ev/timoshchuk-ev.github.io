@@ -73,7 +73,7 @@ input {
     width: 350px;
     display: inline-block;
     margin-left: 10px;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 /* Сообщение об ошибке ввода */
@@ -243,7 +243,7 @@ input {
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
-    margin-top: 10px;
+    margin-top: 5px;
     color: #FFFFFF;
     border: solid 1px #0076a3;
     background: #0095cd;
@@ -295,27 +295,6 @@ input {
     border: #006fdf solid 1px;
     color: #006fdf;
 }
-
-/*
-.btn-primary {
-  background-image: url('../img/btn.png');
-  background-repeat: no-repeat;
-  border: 0px solid red;
-  width: 114px;
-  height: 23px;
-  /*background: #006fdf;
-  border-color: #357ebd; 
-  color: #fff;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 10px;
-  text-align: center ;
-}
-
-.btn-primary:hover{
- /* background: #66A1D3; 
-   color: #FFFFFF;
-   } */
 
 select {
     border: 0.135em solid #d1d1d1;
