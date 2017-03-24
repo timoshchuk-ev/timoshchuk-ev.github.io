@@ -23,6 +23,10 @@ body {
     line-height: 22px;
     font-family: ClearSansRegular;
 }
+h2{
+    margin: 0;
+    margin-bottom: 5px;
+}
 
 main {
     padding: 2% 20% 2% 20%;
