@@ -20,8 +20,8 @@ $(document).ready(function () {
     var rv_series = /^[0-9]{4}$/;
     var rv_number = /^[0-9]{6}$/;
     var rv_k = /^[0-9]{1}$/;
-    var rv_flat = /^[0-9]{4}$/;
-    var rv_building = /^[0-9]{3}$/;
+    var rv_flat = /^[0-9]$/;
+    var rv_building = /^[0-9]$/;
     var rv_name = /^[a-zA-Zа-яА-Я]{2,}$/;
 
 
