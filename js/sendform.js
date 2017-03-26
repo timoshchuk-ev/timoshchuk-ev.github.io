@@ -130,14 +130,14 @@ $(document).ready(function () {
         }
 
 
-        if ($('input#tel').val() == "") {
+        if ($('input#issued').val() == "") {
 
             NO($('input#issued'));
         } else {
-            NO($('input#issued'));
+            YES($('input#issued'));
         }
 
-        if ($('input#tel').val() == "" || rv_tel.test(val)) {
+        if ($('input#tel').val() == "" ) {
             NO($('input#tel'));
 
         }
