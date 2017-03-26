@@ -145,25 +145,27 @@ $(document).ready(function () {
             YES($('input#tel'));
         }
 
-        if ($('input#name').val() == "" || $('input#surname').val() == "" || $('input#lasname').val() == "") {
-
-            NO($('input#lastname'));
+        if (rv_name.test($('#lastname').val()) && rv_name.test($('#name').val()) && rv_name.test($('#surname').val())) {
+                YES($('input#lastname'));
+           
         } else {
-            YES($('input#lastname'));
+          
+             NO($('input#lastname'));
         }
 
-        if ($('input#street').val() == "" || $('input#k').val() == "" || $('input#building').val() == "" || $('input#flat').val() == "") {
+        if (rv_building.test($('#building').val()) && rv_k.test($('#k').val()) && rv_flat.test($('#flat').val())) {
 
-            $(document.getElementById('er_address')).html('Неверный формат адреса')
-                .css('color', 'red')
-                .animate({'paddingLeft': '5px'}, 400)
-                .animate({'paddingLeft': '2px'}, 400);
-
-        } else {
-            $(document.getElementById('er_address')).text('Принято')
+             $(document.getElementById('er_address')).text('Принято')
                 .css('color', 'green')
                 .animate({'paddingLeft': '5px'}, 400)
                 .animate({'paddingLeft': '2px'}, 400);
+
+        } else {
+             $(document.getElementById('er_address')).html('Неверный формат адреса')
+                .css('color', 'red')
+                .animate({'paddingLeft': '5px'}, 400)
+                .animate({'paddingLeft': '2px'}, 400);
+           
         }
 
 
