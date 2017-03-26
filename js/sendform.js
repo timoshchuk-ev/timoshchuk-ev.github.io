@@ -78,7 +78,7 @@ $(document).ready(function () {
                 break;
 
             case 'issued':
-                if (val != '' && rv_name.test(val)) {
+                if (val !='')) {
                     YES($(this));
                 }
                 else {
